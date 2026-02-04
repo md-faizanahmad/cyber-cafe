@@ -32,8 +32,8 @@ export default function AdmissionButton({
       <span
         className={`
           relative z-10 block rounded-full shadow-lg transition-all duration-300
-          bg-accent text-primary font-black uppercase tracking-widest
-          group-hover:bg-white group-hover:scale-105 active:scale-95 
+          bg-accent text-white font-black uppercase tracking-widest
+          group-hover:bg-blue-950 group-hover:scale-105 active:scale-95 
           border border-accent/20 text-center
           ${px} ${py} ${fontSize} ${width}
         `}

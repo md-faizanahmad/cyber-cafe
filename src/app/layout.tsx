@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import { EntryPoster } from "@/components/EntryPoster";
+import WhatsAppChat from "@/shared/WhatsAppChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,49 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "School",
+              "@id": "https://yourdomain.com/#school",
+              name: "Hansraj Public School",
+              alternateName: "Hansraj Public School Gaya",
+              url: "https://yourdomain.com",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Near Bodh Gaya Road",
+                addressLocality: "Gaya",
+                addressRegion: "Bihar",
+                postalCode: "824208",
+                addressCountry: "IN",
+              },
+              telephone: "+91-9512953624",
+              email: "hansraj@schoolgaya.edu",
+              areaServed: {
+                "@type": "City",
+                name: "Gaya",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                // latitude: 24.7955,
+                // longitude: 85.0079,
+              },
+              foundingLocation: {
+                "@type": "Place",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Gaya",
+                  addressRegion: "Bihar",
+                  addressCountry: "IN",
+                },
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -59,6 +103,7 @@ export default function RootLayout({
 
         <Header />
         {children}
+        <WhatsAppChat />
         <Footer />
       </body>
     </html>

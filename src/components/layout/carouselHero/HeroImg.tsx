@@ -1,6 +1,5 @@
 // src/components/sections/Hero.tsx
 import { HeroBackgroundSlider } from "./HeroBackgroundSlider";
-import AdmissionButton from "@/components/ui/AdmissionButton";
 
 interface HeroProps {
   images: string[];
@@ -16,7 +15,7 @@ export default function HeroImg({
   description,
 }: HeroProps) {
   return (
-    <section className="relative  h-screen w-full overflow-hidden flex items-center justify-center bg-primary">
+    <section className="relative mt-8  h-screen w-full overflow-hidden flex items-center justify-center bg-primary">
       {/* 1. Client-Side Image Engine */}
       <HeroBackgroundSlider images={images} />
 
@@ -31,16 +30,6 @@ export default function HeroImg({
           <p className="mt-8 text-lg md:text-xl text-white font-medium max-w-2xl mx-auto leading-relaxed opacity-90">
             {description}
           </p>
-
-          <div className="mt-12">
-            <AdmissionButton
-              px="px-10"
-              py="py-5"
-              fontSize="text-md"
-              width="w-full md:w-fit"
-              isPulse={true} // High attention
-            />
-          </div>
         </div>
       </div>
     </section>

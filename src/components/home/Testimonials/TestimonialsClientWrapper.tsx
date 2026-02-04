@@ -69,7 +69,7 @@ export function TestimonialsClientWrapper({
                 <cite className="not-italic font-bold text-slate-900 block text-lg">
                   {t.name}
                 </cite>
-                <span className="text-[11px] uppercase font-bold tracking-widest text-blue-600/80">
+                <span className="text-[11px] uppercase font-bold tracking-widest text-accent">
                   {t.role}
                 </span>
               </div>
@@ -84,7 +84,7 @@ export function TestimonialsClientWrapper({
           <div
             key={i}
             className={`h-2 rounded-full transition-all duration-300 ${
-              i === activeIdx ? "w-8 bg-blue-600" : "w-2 bg-slate-200"
+              i === activeIdx ? "w-8 bg-accent" : "w-2 bg-slate-200"
             }`}
           />
         ))}

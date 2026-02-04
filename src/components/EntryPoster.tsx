@@ -70,7 +70,7 @@ export function EntryPoster() {
         {/* Close button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-20 p-2 bg-black/30 hover:bg-black/50 text-white backdrop-blur-md transition"
+          className="absolute top-4 right-4 z-20 p-2 bg-black/30 hover:bg-black/50 text-white  transition"
           aria-label="Close Poster"
         >
           <X size={22} />
@@ -83,6 +83,7 @@ export function EntryPoster() {
             alt="Admissions 2026 Poster"
             fill
             priority
+            sizes=""
             className="object-cover p-4"
           />
 
