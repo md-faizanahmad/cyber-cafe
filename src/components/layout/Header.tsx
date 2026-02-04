@@ -92,7 +92,7 @@ export default function Header() {
           {/* DESKTOP MENU */}
           <div className="hidden lg:flex items-center gap-1">
             <NavLink
-              href="/schemes"
+              href="/govt-schemes"
               icon={<Landmark size={15} />}
               label="Govt Schemes"
             />

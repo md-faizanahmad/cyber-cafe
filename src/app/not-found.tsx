@@ -29,7 +29,7 @@ export default function NotFound() {
           <MagneticClientWrapper>
             <Link href="/">
               <button className="rounded-full px-10 h-14 bg-primary text-white text-lg font-bold shadow-2xl">
-                Return to Campus
+                Return to Home
               </button>
             </Link>
           </MagneticClientWrapper>

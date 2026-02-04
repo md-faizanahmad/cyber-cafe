@@ -57,16 +57,21 @@ export default function TrendingSidebar() {
       </div>
 
       {/* MOBILE VIEW: Horizontal Scroll Chips */}
-      <div className="grid col-2 row-2 lg:hidden overflow-x-auto no-scrollbar gap-2 px-4 pb-2">
+      {/* MOBILE VIEW: 2-Column Grid (Visible below LG breakpoint) */}
+      <div className="lg:hidden grid grid-cols-2 gap-3 px-4 pb-6">
         {trendingLinks.map((link, i) => (
           <Link
             key={i}
             href={link.href}
             target="_blank"
-            className="whitespace-nowrap flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-full text-xs font-bold text-slate-700 shadow-sm active:bg-digital-blue active:text-white"
+            className="flex items-center gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm active:scale-95 active:bg-slate-50 transition-all border-l-4 border-l-digital-blue"
           >
-            <Zap size={12} className="text-digital-saffron" />
-            {link.name}
+            <div className="shrink-0 p-1.5 bg-digital-saffron/10 rounded-md">
+              <Zap size={16} className="text-digital-saffron" />
+            </div>
+            <span className="text-sm md:text-base font-bold text-slate-700 leading-tight">
+              {link.name}
+            </span>
           </Link>
         ))}
       </div>
