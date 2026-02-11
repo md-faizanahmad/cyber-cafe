@@ -1,5 +1,5 @@
 import CyberCafeServices from "@/components/home/cyberService/CyberCafeServices";
-import HeroImg from "@/components/layout/carouselHero/HeroImg";
+import HeroSection from "@/components/layout/HeroSection";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import TrustBuilder from "@/shared/TrustBuilder";
 import { Metadata } from "next";
@@ -34,24 +34,11 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const cyberCafeImages = [
-    // "/banner/banner-1.png",
-    "/banner/banner-2.png",
-    "/banner/banner-3.png",
-    "/banner/banner-4.png",
-
-    // "/images/hero/robotics-lab.jpg",
-    // "/images/hero/sports-ground.jpg",
-  ];
   return (
     <main className="relative bg-background">
-      <HeroImg
-        images={cyberCafeImages} // Make sure to update your image array variable name
-        titleTop="सभी ऑनलाइन सरकारी सेवाएँ एक ही जगह"
-        titleAccent=""
-        description="आधार, पैन, नौकरी फॉर्म, छात्रवृत्ति आवेदन"
-      />
+      <HeroSection />
       <CyberCafeServices />
+      <h4>Working in process</h4>
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-6">
           <h2 className="text-2xl md:text-3xl font-black text-center text-slate-900 mb-10">
