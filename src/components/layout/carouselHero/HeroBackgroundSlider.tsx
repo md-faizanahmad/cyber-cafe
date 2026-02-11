@@ -41,7 +41,7 @@ export function HeroBackgroundSlider({ images }: { images: string[] }) {
       {/* Solid Overlay: No Gradient. 
           The backdrop-blur adds a premium 'glass' feel without obscuring the image.
       */}
-      <div className="absolute inset-0   z-10" />
+      <div className="absolute inset-0 bg-primary/50 backdrop-blur-[2px] z-10" />
     </div>
   );
 }

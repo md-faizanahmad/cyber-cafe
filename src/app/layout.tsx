@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer/Footer";
-import { EntryPoster } from "@/components/EntryPoster";
 import WhatsAppChat from "@/shared/WhatsAppChat";
 
 const geistSans = Geist({
@@ -99,8 +98,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <EntryPoster />
-
         <Header />
         {children}
         <WhatsAppChat />

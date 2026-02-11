@@ -1,6 +1,7 @@
 import CyberCafeServices from "@/components/home/cyberService/CyberCafeServices";
 import HeroImg from "@/components/layout/carouselHero/HeroImg";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import TrustBuilder from "@/shared/TrustBuilder";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -46,9 +47,9 @@ export default function Home() {
     <main className="relative bg-background">
       <HeroImg
         images={cyberCafeImages} // Make sure to update your image array variable name
-        titleTop=""
+        titleTop="सभी ऑनलाइन सरकारी सेवाएँ एक ही जगह"
         titleAccent=""
-        description=""
+        description="आधार, पैन, नौकरी फॉर्म, छात्रवृत्ति आवेदन"
       />
       <CyberCafeServices />
       <section className="py-16 bg-slate-50">
@@ -76,6 +77,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <TrustBuilder />
     </main>
   );
 }
