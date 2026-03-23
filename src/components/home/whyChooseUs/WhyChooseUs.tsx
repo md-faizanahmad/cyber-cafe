@@ -7,7 +7,6 @@ import {
   UserCheck,
   FileText,
   CheckCircle2,
-  MousePointerClick,
 } from "lucide-react";
 
 const reasons = [
@@ -107,7 +106,7 @@ export default function WhyChooseUs() {
         </div>
 
         {/* भरोसा पट्टी (Trust Strip) */}
-        <div className="mt-20 p-8 bg-zinc-950 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="mt-20 p-8 bg-zinc-950 rounded-4xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="flex items-center gap-5">
             <div className="w-12 h-12 rounded-2xl bg-digital-blue flex items-center justify-center shrink-0">
               <FileText className="text-white" size={24} />
