@@ -34,11 +34,22 @@ export default function Header() {
   }, []);
 
   const serviceItems = [
-    { name: "Aadhaar Services", href: "/services/aadhaar" },
-    { name: "PAN Card", href: "/services/pan" },
-    { name: "Voter & Passport", href: "/services/voter" },
-    { name: "Certificates", href: "/services/certificates" },
-    { name: "Printing", href: "/services/printing" },
+    { name: "Sarkari Job & Results", href: "/jobs" },
+    { name: "PAN, Voter & Passport", href: "/services/pan" },
+    { name: "Aadhaar Card Updates", href: "/services/aadhaar" },
+    {
+      name: "आय, जाति एवं निवास प्रमाण पत्र",
+      href: "/services/certificates",
+    },
+    {
+      name: "Birth & Death Certificate",
+      href: "/services/certificates",
+    },
+    { name: "Marriage Registration", href: "/services/marriage" },
+    { name: "Land Records (खसरा-खतौनी)", href: "/services/land" },
+    { name: "PVC Card & Photo Printing", href: "/pvc-card" },
+    { name: "Banking & आधार निकासी", href: "/services/banking" },
+    { name: "High-Speed Internet Hub", href: "/pricing" },
   ];
 
   return (
