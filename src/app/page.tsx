@@ -1,6 +1,6 @@
 import CyberCafeServices from "@/components/home/cyberService/CyberCafeServices";
 import WhyChooseUs from "@/components/home/whyChooseUs/WhyChooseUs";
-import HeroSection from "@/components/layout/HeroSection";
+import HeroSection from "@/components/layout/Header/HeroSection";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import TrustBuilder from "@/shared/TrustBuilder";
 import { Metadata } from "next";
