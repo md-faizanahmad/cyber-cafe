@@ -106,13 +106,13 @@ export default function WhyChooseUs() {
         </div>
 
         {/* भरोसा पट्टी (Trust Strip) */}
-        <div className="mt-20 p-8 bg-zinc-950 rounded-4xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+        <div className="mt-20 p-8  flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
           <div className="flex items-center gap-5">
             <div className="w-12 h-12 rounded-2xl bg-digital-blue flex items-center justify-center shrink-0">
               <FileText className="text-white" size={24} />
             </div>
             <div>
-              <p className="text-white font-black text-lg md:text-xl tracking-tight italic">
+              <p className="text-black font-black text-lg md:text-xl tracking-tight italic">
                 10,000+ फॉर्म सफलतापूर्वक भरे गए!
               </p>
               <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">

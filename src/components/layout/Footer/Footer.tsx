@@ -2,70 +2,21 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  Monitor,
-  MapPin,
-  Phone,
-  Mail,
-  ShieldCheck,
-  Globe,
-  Printer,
-} from "lucide-react";
+import { Monitor, MapPin, Phone, Mail } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import SocialLinks from "@/shared/SocialLinks";
 import GetDirections from "@/shared/GetDirectionsButton";
 import TrustAuthority from "./TrustAuthority";
 import { FooterLinkGroup } from "./FooterLinkGroup";
 import AgencyCredit from "./AgencyCredit";
+import Image from "next/image";
 
 export default function Footer() {
   const { name, city, state, phone, phoneRaw, email, address } =
     CYBER_CAFE_CONFIG;
 
-  const trustIndicators = [
-    {
-      icon: <Monitor size={20} />,
-      label: "High-Speed Hub",
-      color: "text-digital-blue",
-    },
-    {
-      icon: <Printer size={20} />,
-      label: "Express Printing",
-      color: "text-digital-green",
-    },
-    {
-      icon: <ShieldCheck size={20} />,
-      label: "Secure CSC Portal",
-      color: "text-digital-blue",
-    },
-    {
-      icon: <Globe size={20} />,
-      label: "Online Govt Forms",
-      color: "text-digital-saffron",
-    },
-  ];
-
   return (
     <footer className="relative w-full border-t border-slate-200 bg-white pt-16 pb-6 text-slate-600">
-      {/* 1. TOP STRIP */}
-      <div className="container mx-auto px-6 mb-12 grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {trustIndicators.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-4 py-6 px-8 bg-slate-50 rounded-2xl border border-slate-100"
-          >
-            <div
-              className={`${item.color} bg-white p-2.5 rounded-lg shadow-sm border border-slate-100`}
-            >
-              {item.icon}
-            </div>
-            <span className="text-[11px] font-black uppercase tracking-wider text-slate-800 leading-tight">
-              {item.label}
-            </span>
-          </div>
-        ))}
-      </div>
-
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* BRAND COLUMN */}
@@ -78,45 +29,71 @@ export default function Footer() {
                 <h2 className="text-xl font-black text-slate-900 leading-none italic uppercase">
                   {name}
                 </h2>
-                <span className="text-[10px] font-bold text-digital-green flex items-center gap-1 uppercase mt-1">
+                <span className="text-[10px] font-bold text-digital-green flex items-center gap-1 uppercase mt-1 tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-digital-green animate-pulse" />
-                  Official CSC Center
+                  आपका साइबर कैफ़े
                 </span>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed text-slate-500">
-              Empowering citizens of{" "}
+            <p className="text-sm leading-relaxed text-zinc-500 max-w-sm">
+              डिजिटल इंडिया पहल के तहत,{" "}
               <strong>
                 {city}, {state}
               </strong>{" "}
-              with high-speed digital access under the Digital India initiative.
+              के नागरिकों को हाई-स्पीड इंटरनेट और सभी सरकारी ई-सेवाओं के साथ
+              सशक्त बनाना।
             </p>
             <SocialLinks />
             <TrustAuthority />
+            <div className="relative w-full h-32 rounded-3xl overflow-hidden  bg-zinc-900 shadow-xl">
+              {/* Overlay for Cyber feel */}
+              <div className="absolute inset-0 bg-digital-blue/10 group-hover:bg-transparent transition-colors z-10" />
+              <Image
+                src="/footer-banner.png"
+                alt="Cyber Cafe Services Banner"
+                fill
+                className="object-fill opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+              />
+            </div>
           </div>
 
           {/* DYNAMIC LINK GROUPS */}
           <div className="lg:col-span-3">
             <FooterLinkGroup
-              title="Services"
+              title="डिजिटल सेवाएँ"
               borderColor="border-digital-saffron"
               links={[
-                { name: "Government Job Forms", href: "/jobs" },
-                { name: "PAN & Passport Services", href: "/services" },
-                { name: "Aadhaar Updates", href: "/services" },
-                { name: "High-Speed Browsing", href: "/pricing" },
+                { name: "Sarkari Job & Results", href: "/jobs" },
+                { name: "PAN, Voter & Passport", href: "/services/pan" },
+                { name: "Aadhaar Card Updates", href: "/services/aadhaar" },
+                {
+                  name: "आय, जाति एवं निवास प्रमाण पत्र",
+                  href: "/services/certificates",
+                },
+                {
+                  name: "Birth & Death Certificate",
+                  href: "/services/certificates",
+                },
+                { name: "Marriage Registration", href: "/services/marriage" },
+                { name: "Land Records (खसरा-खतौनी)", href: "/services/land" },
+                { name: "PVC Card & Photo Printing", href: "/pvc-card" },
+                { name: "Banking & आधार निकासी", href: "/services/banking" },
+                { name: "High-Speed Internet Hub", href: "/pricing" },
               ]}
             />
           </div>
 
           <div className="lg:col-span-2">
             <FooterLinkGroup
-              title="Support"
+              title="सहायता एवं सुरक्षा"
               borderColor="border-digital-blue"
               links={[
                 { name: "About Our Center", href: "/about" },
+                { name: "Service Charges & Plans", href: "/pricing" },
+                { name: "Home Delivery Details", href: "/services/delivery" },
+                { name: "100% Document Privacy", href: "/privacy" },
+                { name: "Data Deletion Policy", href: "/privacy#deletion" },
                 { name: "Terms of Service", href: "/terms" },
-                { name: "Privacy Policy", href: "/privacy" },
               ]}
             />
           </div>

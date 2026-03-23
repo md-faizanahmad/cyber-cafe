@@ -32,7 +32,7 @@ export default function TrustAuthority() {
   ];
 
   return (
-    <div className="flex flex-wrap items-center gap-6 pt-4 ">
+    <div className="flex  items-center gap-6 pt-4 ">
       {logos.map((logo) => (
         <div
           key={logo.name}
@@ -43,7 +43,7 @@ export default function TrustAuthority() {
             alt={logo.name}
             width={logo.width}
             height={40}
-            className="object-contain h-8 w-auto"
+            className="object-contain h-18 w-auto"
           />
         </div>
       ))}
