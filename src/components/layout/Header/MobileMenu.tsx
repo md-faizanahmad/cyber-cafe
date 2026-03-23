@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { MobileMenuProps, MobileLinkProps, ServiceItem } from "./types";
+import { MobileMenuProps, MobileLinkProps, ServiceItem } from "../types";
 
 export function MobileMenu({ items, pathname, onClose }: MobileMenuProps) {
   return (
