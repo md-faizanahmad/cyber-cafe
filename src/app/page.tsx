@@ -39,31 +39,7 @@ export default function Home() {
       <HeroSection />
       <CyberCafeServices />
       <h4>Working in process</h4>
-      <section className="py-16 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <h2 className="text-2xl md:text-3xl font-black text-center text-slate-900 mb-10">
-            Why Choose Us
-          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Experienced assistance for online & government services",
-              "Fast computers & reliable internet",
-              "Error-free form filling with verification",
-              "Secure handling of Aadhaar, biometric & payments",
-              "All digital services available at one place",
-              "Trusted local cyber café support",
-            ].map((point, i) => (
-              <div
-                key={i}
-                className="p-6 bg-white rounded-xl border border-slate-200 font-semibold text-slate-700"
-              >
-                {point}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       <TrustBuilder />
     </main>
   );

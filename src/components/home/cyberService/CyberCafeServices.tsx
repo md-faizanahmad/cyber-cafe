@@ -83,7 +83,7 @@ const services = [
 
 export default function CyberCafeServices() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-25 bg-white ">
       <div className="container mx-auto px-6">
         {/* HEADER */}
         <div className="mb-12 text-center">

@@ -4,7 +4,7 @@ import WhatsAppButton from "@/shared/WhatsAppButton";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-background px-4 py-16 sm:py-20">
+    <section className="relative top-20 overflow-hidden bg-background px-4 py-16 sm:py-20">
       <div className="mx-auto max-w-5xl text-center">
         {/* Heading */}
         <h1 className="text-[clamp(2rem,6vw,3.5rem)] font-bold leading-tight text-primary">
