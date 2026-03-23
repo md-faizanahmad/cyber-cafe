@@ -1,4 +1,5 @@
 import CyberCafeServices from "@/components/home/cyberService/CyberCafeServices";
+import WhyChooseUs from "@/components/home/whyChooseUs/WhyChooseUs";
 import HeroSection from "@/components/layout/HeroSection";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import TrustBuilder from "@/shared/TrustBuilder";
@@ -38,8 +39,7 @@ export default function Home() {
     <main className="relative bg-background">
       <HeroSection />
       <CyberCafeServices />
-      <h4>Working in process</h4>
-
+      <WhyChooseUs />
       <TrustBuilder />
     </main>
   );
