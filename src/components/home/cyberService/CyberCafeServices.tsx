@@ -9,6 +9,7 @@ import {
   ExternalLink,
   Printer,
 } from "lucide-react";
+import ActionCTA from "@/components/ui/ActionCTA";
 
 const services = [
   {
@@ -134,14 +135,7 @@ export default function CyberCafeServices() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
-          <p className="text-sm font-bold text-slate-600 mb-2">
-            Don’t want to do it yourself?
-          </p>
-          <p className="text-lg font-black text-slate-900">
-            Visit our Cyber Café — we’ll handle everything for you.
-          </p>
-        </div>
+        <ActionCTA />
       </div>
     </section>
   );

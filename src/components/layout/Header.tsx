@@ -110,7 +110,7 @@ export default function Header() {
           </div>
 
           <button
-            className="lg:hidden p-2 text-slate-900"
+            className="lg:hidden p-2 text-slate-900 "
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={26} /> : <Menu size={26} />}

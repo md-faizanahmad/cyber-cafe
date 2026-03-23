@@ -142,3 +142,8 @@
 .animate-text-float {
   animation: text-float 6s ease-in-out infinite;
 }
+
+/* Default */
+button {
+  cursor: pointer;
+}
