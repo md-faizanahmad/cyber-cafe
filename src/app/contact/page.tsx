@@ -1,155 +1,104 @@
-import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
-import React from "react";
+"use client";
+
+import { Phone, MapPin, Mail } from "lucide-react";
+import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 
 export default function ContactPage() {
+  const { phone, phoneRaw, email, address, city } = CYBER_CAFE_CONFIG;
+
   return (
-    <main className="bg-white min-h-screen">
-      {/* 1. HEADER */}
-      <section className="bg-slate-50 pt-32 pb-16 md:pt-40 md:pb-24 px-6 border-b border-slate-100 text-center">
-        <div className="container mx-auto max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-serif text-slate-900 leading-tight mb-6">
-            Get in{" "}
-            <span className="italic text-blue-600 font-medium">Touch.</span>
-          </h1>
-          <p className="text-lg text-slate-500 leading-relaxed font-medium">
-            Whether you have a question about admissions, academics, or campus
-            tours, our administration team is here to assist you.
+    <section className="px-4 py-16 bg-white">
+      <div className="max-w-5xl mx-auto">
+        {/* 🔥 HEADER */}
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-bold">संपर्क करें</h1>
+          <p className="text-gray-600 mt-2">
+            किसी भी सेवा के लिए तुरंत संपर्क करें
           </p>
         </div>
-      </section>
 
-      {/* 2. CONTACT GRID */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Left: Contact Information */}
-            <div className="space-y-12">
-              <div className="grid sm:grid-cols-2 gap-8">
-                <ContactInfoCard
-                  icon={<MapPin size={24} />}
-                  title="Visit Our Campus"
-                  detail="Gaya, Bihar - 824208"
-                  subDetail="+91 00000 00000"
-                />
-                <ContactInfoCard
-                  icon={<Phone size={24} />}
-                  title="Call Support"
-                  detail="+91 98765 43210"
-                  subDetail="+91 00000 00000"
-                />
-                <ContactInfoCard
-                  icon={<Mail size={24} />}
-                  title="Email Address"
-                  detail="info@abcschoolgaya.edu"
-                  subDetail="admissions@abcschoolgaya.edu"
-                />
-                <ContactInfoCard
-                  icon={<Clock size={24} />}
-                  title="Office Hours"
-                  detail="Mon - Sat: 8:00 AM - 3:00 PM"
-                  subDetail="Sunday: Closed"
-                />
-              </div>
+        {/* 🔥 QUICK ACTION */}
+        <div className="grid sm:grid-cols-2 gap-5 mb-12">
+          {/* CALL */}
+          <a
+            href={`tel:+91${phoneRaw}`}
+            className="p-6 border rounded-xl text-center hover:shadow-md"
+          >
+            <Phone className="mx-auto mb-3" />
+            <p className="font-semibold">Call करें</p>
+            <p className="text-sm text-gray-600">{phone}</p>
+          </a>
 
-              {/* Quick WhatsApp Action (High Conversion) */}
-              <div className="bg-emerald-50 p-8 rounded-[2rem] border border-emerald-100 flex items-center justify-between">
-                <div>
-                  <h3 className="text-emerald-900 font-bold text-lg">
-                    Chat with us on WhatsApp
-                  </h3>
-                  <p className="text-emerald-700 text-sm">
-                    Instant response for general enquiries.
-                  </p>
-                </div>
-                <button className="h-14 w-14 rounded-full bg-emerald-500 text-white flex items-center justify-center hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-200">
-                  <MessageCircle size={28} />
-                </button>
-              </div>
-            </div>
-
-            {/* Right: Embedded Map (Google Maps Placeholder) */}
-            <div className="relative w-full h-125 lg:h-full min-h-100 rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl bg-slate-100">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14457.433221980838!2d84.80165755!3d24.88574365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f3333333333333%3A0x0!2zR2F5YSwgQmloYXI!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                className="absolute inset-0 w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </div>
+          {/* WHATSAPP */}
+          <a
+            href={`https://wa.me/91${phoneRaw}`}
+            className="p-6 border rounded-xl text-center bg-green-500 text-white hover:bg-green-600"
+          >
+            <p className="text-lg">💬</p>
+            <p className="font-semibold">WhatsApp करें</p>
+            <p className="text-sm">तुरंत जवाब मिलेगा</p>
+          </a>
         </div>
-      </section>
 
-      {/* 3. QUICK ENQUIRY FORM (Simplified) */}
-      <section className="bg-blue-900 py-20 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif text-white mb-4">
-              Send a Quick Message
-            </h2>
-            <p className="text-blue-200 text-sm">
-              We usually respond within 24 business hours.
-            </p>
-          </div>
+        {/* 🔥 CONTACT INFO */}
+        <div className="bg-gray-50 p-6 rounded-xl border space-y-4">
+          <h2 className="text-lg font-semibold">हमारी जानकारी</h2>
 
-          <form className="grid gap-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="bg-blue-950 border border-blue-800 text-white px-6 py-4 rounded-2xl outline-none focus:border-yellow-500 transition-all"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="bg-blue-950 border border-blue-800 text-white px-6 py-4 rounded-2xl outline-none focus:border-yellow-500 transition-all"
-              />
-            </div>
-            <textarea
-              placeholder="How can we help you?"
-              rows={5}
-              className="bg-blue-950 border border-blue-800 text-white px-6 py-4 rounded-2xl outline-none focus:border-yellow-500 transition-all"
+          <p className="flex items-center gap-2 text-sm">
+            <MapPin size={16} /> {address.line1}, {city}
+          </p>
+
+          <p className="flex items-center gap-2 text-sm">
+            <Phone size={16} /> {phone}
+          </p>
+
+          <p className="flex items-center gap-2 text-sm">
+            <Mail size={16} /> {email}
+          </p>
+        </div>
+
+        {/* 🔥 DIRECTIONS */}
+        <div className="mt-8 text-center">
+          <a
+            href="https://maps.google.com"
+            target="_blank"
+            className="inline-block px-6 py-3 bg-black text-white rounded"
+          >
+            📍 Directions देखें
+          </a>
+        </div>
+
+        {/* 🔥 OPTIONAL FORM (LOW PRIORITY) */}
+        <div className="mt-12 border p-6 rounded-xl">
+          <h3 className="font-semibold mb-4">या अपना विवरण भेजें</h3>
+
+          <form className="space-y-4">
+            <input
+              type="text"
+              placeholder="नाम"
+              className="w-full border p-2 rounded"
             />
-            <button className="bg-yellow-500 text-blue-950 py-4 rounded-full font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2 hover:bg-yellow-400 transition-all shadow-xl">
-              <Send size={18} /> Send Message
+
+            <input
+              type="tel"
+              placeholder="मोबाइल नंबर"
+              className="w-full border p-2 rounded"
+            />
+
+            <textarea
+              placeholder="आपको क्या सेवा चाहिए?"
+              className="w-full border p-2 rounded"
+            />
+
+            <button
+              type="submit"
+              className="w-full py-2 bg-black text-white rounded"
+            >
+              भेजें
             </button>
           </form>
         </div>
-      </section>
-    </main>
-  );
-}
-
-interface ContactInfoCardProp {
-  icon: React.ReactElement;
-  title: string;
-  detail: string;
-  subDetail: string;
-}
-
-function ContactInfoCard({
-  icon,
-  title,
-  detail,
-  subDetail,
-}: ContactInfoCardProp) {
-  return (
-    <div className="space-y-3">
-      <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm">
-        {icon}
       </div>
-      <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">
-        {title}
-      </h3>
-      <p className="text-slate-600 text-sm leading-relaxed">
-        {detail}
-        {subDetail && (
-          <>
-            <br />
-            {subDetail}
-          </>
-        )}
-      </p>
-    </div>
+    </section>
   );
 }
