@@ -2,7 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, MessageCircle, Monitor } from "lucide-react";
+import {
+  Menu,
+  X,
+  Phone,
+  MessageCircle,
+  Monitor,
+  ArrowRight,
+} from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import { NAV_LINKS } from "@/config/nav.config";
 
@@ -10,21 +17,18 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const { name, phone } = CYBER_CAFE_CONFIG;
 
-  // क्लिक करने पर बैकग्राउंड स्क्रॉल रोकना
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (open) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
   }, [open]);
 
   return (
     <>
-      <header className=" sticky top-0 bg-white/90 backdrop-blur-md border-b border-slate-100 z-70">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
+      {/* HEADER */}
+      <header className="sticky top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-100">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16 md:h-20">
           {/* LOGO */}
-          <Link href="/" className="flex items-center gap-2.5 z-80">
+          <Link href="/" className="flex items-center gap-2.5 relative z-110">
             <div className="bg-zinc-900 text-white h-9 w-9 flex items-center justify-center rounded-xl shadow-lg">
               <Monitor size={18} />
             </div>
@@ -57,85 +61,90 @@ export default function Header() {
             </a>
           </nav>
 
-          {/* MOBILE HAMBURGER BUTTON */}
+          {/* MOBILE HAMBURGER */}
           <button
-            onClick={() => setOpen(!open)}
-            className="lg:hidden p-2 text-zinc-900 z-80 focus:outline-none"
-            aria-label="Toggle Menu"
+            onClick={() => setOpen(true)}
+            className="lg:hidden p-2 text-zinc-900 outline-none active:scale-90 transition-transform"
           >
-            {open ? <X size={26} /> : <Menu size={26} />}
+            <Menu size={26} />
           </button>
         </div>
+      </header>
 
-        {/* 📱 MOBILE OVERLAY MENU - (Fix: Initial state is -translate-y-full) */}
-        <div
-          className={`fixed inset-0 bg-white z-75 lg:hidden transform transition-transform duration-500 ease-in-out ${
-            open ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-          }`}
-          style={{ height: "100vh", pointerEvents: open ? "auto" : "none" }}
-        >
-          <div className="flex flex-col h-full pt-28 px-10 pb-12 overflow-y-auto">
-            {/* Nav Links */}
-            <div className="space-y-8 mb-12">
-              {NAV_LINKS.map((link, i) => (
+      {/* 📱 MODERN SIDE DRAWER MENU */}
+      {/* Overlay Backdrop */}
+      <div
+        className={`fixed inset-0 bg-zinc-950/40 backdrop-blur-sm z-120 lg:hidden transition-opacity duration-300 ${
+          open ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={() => setOpen(false)}
+      />
+
+      {/* Sidebar Sheet */}
+      <div
+        className={`fixed top-0 right-0 h-full w-70 sm:w-[320px] bg-white z-130 lg:hidden shadow-2xl transform transition-transform duration-500 ease-out border-l border-slate-100 ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col h-full">
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between p-6 border-b border-slate-50">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
+              Navigation
+            </span>
+            <button
+              onClick={() => setOpen(false)}
+              className="p-2 bg-slate-50 rounded-full text-zinc-500"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Drawer Links */}
+          <nav className="flex-1 px-4 py-6">
+            <div className="space-y-2">
+              {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`block text-3xl font-black uppercase tracking-tighter italic ${
-                    i === 0 ? "text-digital-blue" : "text-zinc-900"
-                  }`}
+                  className="flex items-center justify-between w-full p-4 rounded-2xl text-zinc-900 font-bold text-sm uppercase tracking-wider hover:bg-slate-50 transition-colors group"
                 >
                   {link.label}
+                  <ArrowRight
+                    size={16}
+                    className="text-zinc-300 group-hover:text-digital-blue transform group-hover:translate-x-1 transition-all"
+                  />
                 </Link>
               ))}
             </div>
+          </nav>
 
-            {/* Mobile Actions */}
-            <div className="mt-auto space-y-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
-                CONNECT_HUB
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <a
-                  href={`tel:${phone}`}
-                  className="flex flex-col items-center justify-center p-5 bg-zinc-50 rounded-2xl border border-zinc-100"
-                >
-                  <Phone size={22} className="mb-2 text-zinc-900" />
-                  <span className="text-[10px] font-bold uppercase">Call</span>
-                </a>
-                <a
-                  href={`https://wa.me/91${phone}`}
-                  className="flex flex-col items-center justify-center p-5 bg-green-50 rounded-2xl border border-green-100"
-                >
-                  <MessageCircle size={22} className="mb-2 text-green-600" />
-                  <span className="text-[10px] font-bold uppercase">
-                    WhatsApp
-                  </span>
-                </a>
-              </div>
+          {/* Drawer Footer (Actions) */}
+          <div className="p-6 bg-slate-50/50 space-y-4">
+            <div className="grid grid-cols-1 gap-3">
+              <a
+                href={`tel:${phone}`}
+                className="flex items-center gap-3 w-full p-4 bg-zinc-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-lg"
+              >
+                <div className="bg-white/10 p-2 rounded-lg">
+                  <Phone size={14} />
+                </div>
+                Call Center
+              </a>
+              <a
+                href={`https://wa.me/91${phone}`}
+                className="flex items-center gap-3 w-full p-4 bg-white border border-slate-200 text-zinc-900 rounded-2xl font-bold text-xs uppercase tracking-widest"
+              >
+                <div className="bg-green-500/10 p-2 rounded-lg text-green-600">
+                  <MessageCircle size={14} />
+                </div>
+                WhatsApp Info
+              </a>
             </div>
           </div>
         </div>
-      </header>
-
-      {/* 🚀 FLOATING PILL (Only visible when menu is CLOSED) */}
-      {!open && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center bg-zinc-950/90 backdrop-blur-md text-white px-2 py-2 rounded-2xl shadow-2xl z-50 lg:hidden w-[90%] max-w-[320px] border border-white/10">
-          <a
-            href={`tel:${phone}`}
-            className="flex-1 flex items-center justify-center gap-2 py-3 font-bold text-[10px] uppercase tracking-[0.2em] border-r border-white/10"
-          >
-            <Phone size={14} /> Call Now
-          </a>
-          <a
-            href={`https://wa.me/91${phone}`}
-            className="flex-1 flex items-center justify-center gap-2 py-3 font-bold text-[10px] uppercase tracking-[0.2em] text-green-400"
-          >
-            <MessageCircle size={14} /> WhatsApp
-          </a>
-        </div>
-      )}
+      </div>
     </>
   );
 }
