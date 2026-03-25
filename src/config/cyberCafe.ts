@@ -117,5 +117,5 @@ export const CYBER_CAFE_CONFIG = {
   // ============================================================
   // WEBSITE
   // ============================================================
-  website: "https://yourdomain.com",
+  website: "https://cyber-cafe-drab.vercel.app"
 };

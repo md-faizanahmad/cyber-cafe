@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function AgencyCredit() {
   return (
     <Link
-      href="https://mfaagency.com"
+     href="https://agency.mdfaizanahmad.in"
       target="_blank"
       className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-lg hover:bg-slate-100 transition-all border border-slate-100"
     >
