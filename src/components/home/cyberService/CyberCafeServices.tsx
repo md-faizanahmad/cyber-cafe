@@ -1,141 +1,87 @@
 "use client";
 
-import Link from "next/link";
-import {
-  Globe,
-  FileText,
-  CreditCard,
-  Landmark,
-  ExternalLink,
-  Printer,
-} from "lucide-react";
-import ActionCTA from "@/components/ui/ActionCTA";
-
 const services = [
   {
-    title: "Vehicle & Transport Services",
-    icon: <CreditCard size={22} />,
-    items: [
-      { name: "HSRP Number Plate", href: "https://bookmyhsrp.com/" },
-      { name: "Driving License Services", href: "https://parivahan.gov.in/" },
-    ],
+    title: "PAN Card Apply",
+    price: "₹150",
+    time: "15 मिनट",
+    docs: ["Aadhaar Card", "Mobile Number"],
   },
   {
-    title: "Government & CSC Services",
-    icon: <Landmark size={22} />,
-    items: [
-      {
-        name: "CSC Digital Seva Login",
-        href: "https://digitalseva.csc.gov.in/",
-      },
-      { name: "Bihar E-District", href: "https://serviceonline.bihar.gov.in/" },
-      {
-        name: "Bihar Land Records (Bhumi)",
-        href: "http://biharbhumi.bihar.gov.in/",
-      },
-    ],
+    title: "Aadhaar Update",
+    price: "₹50",
+    time: "10 मिनट",
+    docs: ["Aadhaar Card"],
   },
   {
-    title: "Identity & Certificates",
-    icon: <FileText size={22} />,
-    items: [
-      {
-        name: "PAN Card (NSDL)",
-        href: "https://www.onlineservices.nsdl.com/paam/endUserRegisterContact.html",
-      },
-      { name: "E-Aadhaar Download", href: "https://myaadhaar.uidai.gov.in/" },
-      { name: "Passport Seva", href: "https://www.passportindia.gov.in/" },
-    ],
+    title: "Online Form Filling",
+    price: "₹100",
+    time: "15-20 मिनट",
+    docs: ["Documents as per form"],
   },
   {
-    title: "Scholarship & Yojana",
-    icon: <Globe size={22} />,
-    items: [
-      { name: "PM Kisan Yojana", href: "https://pmkisan.gov.in/" },
-      { name: "PM Fasal Bima Yojana", href: "https://pmfby.gov.in/" },
-      { name: "Bihar Scholarship", href: "https://pmsonline.bih.nic.in/" },
-      {
-        name: "National Scholarship Portal",
-        href: "https://scholarships.gov.in/",
-      },
-    ],
+    title: "जाति / आय / निवास प्रमाण पत्र",
+    price: "₹120",
+    time: "20 मिनट",
+    docs: ["Aadhaar", "Photo", "Proof"],
   },
   {
-    title: "Payments & Banking Services",
-    icon: <CreditCard size={22} />,
-    items: [
-      { name: "Digital Payments", href: "#" },
-      { name: "AEPS (Aadhaar Enabled Payment)", href: "#" },
-      { name: "PM Kisan Yojana", href: "https://pmkisan.gov.in/" },
-      { name: "PM Fasal Bima Yojana", href: "https://pmfby.gov.in/" },
-    ],
+    title: "Print / Scan / Xerox",
+    price: "₹5 – ₹20",
+    time: "Instant",
+    docs: ["File / Document"],
   },
   {
-    title: "Printing & Delivery Services",
-    icon: <Printer size={22} />,
-    items: [
-      { name: "Printing (B/W & Color)", href: "#" },
-      { name: "Scanning & Photocopy", href: "#" },
-      { name: "Lamination", href: "#" },
-      { name: "Photo Services (Passport / ID)", href: "#" },
-    ],
+    title: "AEPS / Money Withdrawal",
+    price: "₹10 – ₹30",
+    time: "5 मिनट",
+    docs: ["Aadhaar + Fingerprint"],
   },
 ];
 
-export default function CyberCafeServices() {
+export default function ServicesSection() {
   return (
-    <section className="py-25 bg-white ">
-      <div className="container mx-auto px-6">
-        {/* HEADER */}
-        <div className="mb-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-black text-slate-900">
-            Our Cyber Café Services
+    <section id="services" className="py-16 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto">
+        {/* 🔥 HEADER */}
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-black">
+            हमारी सेवाएं
           </h2>
-          <p className="mt-3 text-slate-500 font-medium max-w-xl mx-auto">
-            We help you fill online forms, apply for government services, print
-            documents, and complete registrations accurately and quickly.
+          <p className="text-gray-600 mt-2">
+            सही जानकारी के साथ आपका काम जल्दी और बिना गलती के
           </p>
         </div>
 
-        {/* SERVICES GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 🔥 GRID */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-lg bg-digital-blue/10 text-digital-blue">
-                  {service.icon}
-                </div>
-                <h3 className="text-sm font-black uppercase tracking-wide text-slate-800">
-                  {service.title}
-                </h3>
+            <div key={i} className="bg-white p-5 rounded-xl border shadow-sm">
+              <h3 className="font-semibold text-lg mb-2">{service.title}</h3>
+
+              <p className="text-sm text-gray-600">💰 {service.price}</p>
+
+              <p className="text-sm text-gray-600">⏱ {service.time}</p>
+
+              <div className="mt-3 text-sm">
+                <p className="font-medium">📄 जरूरी कागजात:</p>
+                <ul className="list-disc ml-4 text-gray-600">
+                  {service.docs.map((doc, idx) => (
+                    <li key={idx}>{doc}</li>
+                  ))}
+                </ul>
               </div>
 
-              <ul className="space-y-3">
-                {service.items.map((item, idx) => (
-                  <li key={idx}>
-                    <Link
-                      href={item.href}
-                      target="_blank"
-                      className="group flex items-center justify-between text-sm font-semibold text-slate-600 hover:text-digital-blue"
-                    >
-                      {item.name}
-                      <ExternalLink
-                        size={14}
-                        className="opacity-40 group-hover:opacity-100"
-                      />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {/* 🔥 CTA */}
+              <a
+                href="https://wa.me/919876543210"
+                className="mt-4 block text-center py-2 bg-green-500 text-white rounded-lg text-sm font-semibold"
+              >
+                💬 WhatsApp करें
+              </a>
             </div>
           ))}
         </div>
-
-        {/* CTA */}
-        <ActionCTA />
       </div>
     </section>
   );
