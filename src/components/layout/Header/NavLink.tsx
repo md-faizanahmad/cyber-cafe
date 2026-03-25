@@ -1,34 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 interface NavLinkProps {
   href: string;
-  icon: React.ReactNode;
   label: string;
-  active: boolean;
 }
 
-export function NavLink({ href, icon, label, active }: NavLinkProps) {
+export function NavLink({ href, label }: NavLinkProps) {
+  const pathname = usePathname();
+
+  const isActive = href.startsWith("#") ? false : pathname === href;
+
   return (
     <Link
       href={href}
-      className={`relative flex items-center gap-2 px-4 py-2 text-sm font-bold transition-colors uppercase tracking-tight 
-        ${active ? "text-digital-blue" : "text-slate-700 hover:text-digital-blue"}`}
+      className={`text-sm font-medium transition-colors ${
+        isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
+      }`}
     >
-      <span className={active ? "text-digital-blue" : "text-digital-blue/60"}>
-        {icon}
-      </span>
       {label}
-
-      {/* Animated underline only for active desktop link */}
-      {active && (
-        <motion.div
-          layoutId="nav-underline"
-          className="absolute bottom-0 left-4 right-4 h-0.5 bg-digital-blue"
-        />
-      )}
     </Link>
   );
 }

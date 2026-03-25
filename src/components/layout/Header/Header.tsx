@@ -1,144 +1,122 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  Monitor,
-  Menu,
-  X,
-  CreditCard,
-  FileText,
-  Landmark,
-  Phone,
-  Clock,
-} from "lucide-react";
-import { AnimatePresence } from "framer-motion";
-
-// Import small components
-import { NavLink } from "./NavLink";
-import { ServicesDropdown } from "./ServicesDropdown";
-import { MobileMenu } from "./MobileMenu";
+import { Menu, X, Phone } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import { NAV_LINKS } from "./nav.config";
+import { NavLink } from "./NavLink";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const { name, phone, city } = CYBER_CAFE_CONFIG;
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const serviceItems = [
-    { name: "Sarkari Job & Results", href: "/jobs" },
-    { name: "PAN, Voter & Passport", href: "/services/pan" },
-    { name: "Aadhaar Card Updates", href: "/services/aadhaar" },
-    {
-      name: "आय, जाति एवं निवास प्रमाण पत्र",
-      href: "/services/certificates",
-    },
-    {
-      name: "Birth & Death Certificate",
-      href: "/services/certificates",
-    },
-    { name: "Marriage Registration", href: "/services/marriage" },
-    { name: "Land Records (खसरा-खतौनी)", href: "/services/land" },
-    { name: "PVC Card & Photo Printing", href: "/pvc-card" },
-    { name: "Banking & आधार निकासी", href: "/services/banking" },
-    { name: "High-Speed Internet Hub", href: "/pricing" },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      {/* 1. TOP BAR (Static Data) */}
-      <div className="hidden lg:block bg-digital-blue text-white py-2 px-6 text-[11px] font-bold uppercase tracking-widest">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex gap-6">
-            <span className="flex items-center gap-2">
-              <Clock size={14} className="text-digital-saffron" /> 9 AM - 8 PM
-            </span>
-            <span className="flex items-center gap-2">
-              <Phone size={14} className="text-digital-saffron" /> {phone}
-            </span>
-          </div>
-          <span>Digital India Initiative • CSC Verified</span>
-        </div>
+    <>
+      {/* TOP BAR */}
+      <div className="hidden lg:flex justify-between px-6 py-2 text-xs bg-black text-white">
+        <span>📍 {city} | ⏰ 9AM–8PM</span>
+        <span>✔️ Trusted Cyber Cafe</span>
       </div>
 
-      {/* 2. MAIN NAV */}
-      <nav
-        className={`transition-all border-b ${scrolled ? "bg-white/95 backdrop-blur-md shadow-md py-2" : "bg-white py-4"} border-slate-100`}
-      >
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="h-11 w-11 rounded-lg bg-digital-blue flex items-center justify-center shadow-lg">
-              <Monitor className="text-white" size={22} />
+      {/* HEADER */}
+      <header className="sticky top-0 bg-white border-b z-50">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center py-3">
+          {/* LOGO */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="bg-black text-white h-9 w-9 flex items-center justify-center rounded">
+              🖥️
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-black text-slate-900 leading-none uppercase italic">
-                {name}
-              </h1>
-              <span className="text-[9px] font-bold text-digital-green uppercase tracking-widest">
-                {city} Digital Seva
-              </span>
-            </div>
+            <span className="text-sm font-semibold">{name}</span>
           </Link>
 
-          {/* DESKTOP MENU - Small Components in action */}
-          <div className="hidden lg:flex items-center gap-1">
-            <NavLink
-              href="/govt-schemes"
-              icon={<Landmark size={15} />}
-              label="Schemes"
-              active={pathname === "/govt-schemes"}
-            />
-            <NavLink
-              href="/jobs"
-              icon={<FileText size={15} />}
-              label="Forms"
-              active={pathname === "/jobs"}
-            />
-            <ServicesDropdown items={serviceItems} pathname={pathname} />
+          {/* DESKTOP NAV */}
+          <nav className="hidden lg:flex gap-6">
+            {NAV_LINKS.map((link) => (
+              <NavLink key={link.href} {...link} />
+            ))}
+          </nav>
 
-            <Link
-              href="/pvc-card"
-              className={`ml-4 flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all ${pathname === "/pvc-card" ? "bg-digital-blue text-white" : "bg-slate-900 text-white hover:bg-digital-blue"}`}
+          {/* CTA */}
+          <div className="hidden lg:flex gap-3">
+            <a
+              href={`tel:${phone}`}
+              className="px-4 py-2 bg-black text-white rounded-full text-sm"
             >
-              <CreditCard
-                size={15}
-                className={
-                  pathname === "/pvc-card"
-                    ? "text-white"
-                    : "text-digital-saffron"
-                }
-              />
-              PVC Card
-            </Link>
+              📞 Call
+            </a>
+            <a
+              href={`https://wa.me/91${phone}`}
+              target="_blank"
+              className="px-4 py-2 bg-green-500 text-white rounded-full text-sm"
+            >
+              💬 WhatsApp
+            </a>
           </div>
 
-          <button
-            className="lg:hidden p-2 text-slate-900 "
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
-      </nav>
+          {/* MOBILE */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a href={`tel:${phone}`}>
+              <Phone size={20} />
+            </a>
 
-      {/* 3. MOBILE OVERLAY */}
-      <AnimatePresence>
-        {isOpen && (
-          <MobileMenu
-            items={serviceItems}
-            pathname={pathname}
-            onClose={() => setIsOpen(false)}
-          />
+            <a href={`https://wa.me/91${phone}`} className="text-green-600">
+              💬
+            </a>
+
+            <button onClick={() => setOpen(!open)}>
+              {open ? <X /> : <Menu />}
+            </button>
+          </div>
+        </div>
+
+        {/* MOBILE MENU */}
+        {open && (
+          <div className="lg:hidden px-4 pb-4 space-y-3 border-t">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block text-sm text-gray-700"
+              >
+                {link.label}
+              </a>
+            ))}
+
+            <div className="pt-3 space-y-2">
+              <a
+                href={`tel:${phone}`}
+                className="block w-full text-center py-2 bg-black text-white rounded"
+              >
+                📞 Call Now
+              </a>
+              <a
+                href={`https://wa.me/91${phone}`}
+                className="block w-full text-center py-2 bg-green-500 text-white rounded"
+              >
+                💬 WhatsApp करें
+              </a>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
-    </header>
+      </header>
+
+      {/* MOBILE STICKY CTA */}
+      <div className="fixed bottom-0 left-0 right-0 flex lg:hidden">
+        <a
+          href={`tel:${phone}`}
+          className="w-1/2 py-3 bg-black text-white text-center"
+        >
+          📞 Call
+        </a>
+        <a
+          href={`https://wa.me/91${phone}`}
+          className="w-1/2 py-3 bg-green-500 text-white text-center"
+        >
+          💬 WhatsApp
+        </a>
+      </div>
+    </>
   );
 }
