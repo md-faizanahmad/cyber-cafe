@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, Phone } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
-import { NAV_LINKS } from "./nav.config";
 import { NavLink } from "./NavLink";
+import { NAV_LINKS } from "@/config/nav.config";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
