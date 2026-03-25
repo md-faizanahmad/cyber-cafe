@@ -1,50 +1,54 @@
-// components/TrustBuilder.tsx
+"use client";
+
+import { Phone } from "lucide-react";
 
 export default function TrustBuilder() {
-  const trustPoints = [
-    {
-      title: "सही और भरोसेमंद जानकारी",
-      description:
-        "हर फॉर्म और आवेदन सही नियमों के अनुसार भरा जाता है ताकि कोई गलती न हो।",
-    },
-    {
-      title: "कम समय में काम पूरा",
-      description:
-        "लंबी लाइन और बार-बार चक्कर लगाने की जरूरत नहीं, आपका काम जल्दी और सरल तरीके से होता है।",
-    },
-    {
-      title: "सुरक्षित ऑनलाइन सेवा",
-      description: "आपकी व्यक्तिगत जानकारी पूरी तरह सुरक्षित रखी जाती है।",
-    },
-    {
-      title: "अनुभवी और ईमानदार सेवा",
-      description:
-        "हम स्थानीय लोगों की कई वर्षों से सेवा कर रहे हैं, सही मार्गदर्शन हमारा वादा है।",
-    },
+  const stats = [
+    { value: "10,000+", label: "फॉर्म सफलतापूर्वक भरे गए" },
+    { value: "5,000+", label: "खुश ग्राहक" },
+    { value: "5+ साल", label: "अनुभव" },
+    { value: "10 मिनट", label: "औसत समय" },
   ];
 
   return (
-    <section className="bg-gray-50 py-12 px-4">
-      <div className="mx-auto max-w-6xl text-center">
-        <h2 className="text-2xl font-bold text-gray-900">
-          क्यों चुनें हमारा साइबर कैफे?
+    <section className="py-14 px-4 bg-gray-50">
+      <div className="max-w-6xl mx-auto text-center">
+        {/* 🔥 HEADLINE */}
+        <h2 className="text-2xl md:text-3xl font-bold text-black">
+          अब तक का हमारा काम
         </h2>
-        <p className="mt-2 text-gray-600">
-          भरोसा, सही जानकारी और समय की बचत – यही हमारी पहचान है।
-        </p>
+        <p className="text-gray-600 mt-2">लोगों का भरोसा ही हमारी पहचान है</p>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {trustPoints.map((point, index) => (
-            <div
-              key={index}
-              className="rounded-lg bg-white p-6 shadow-sm border hover:shadow-md transition"
-            >
-              <h3 className="text-lg font-semibold text-gray-900">
-                {point.title}
-              </h3>
-              <p className="mt-3 text-sm text-gray-600">{point.description}</p>
+        {/* 🔥 STATS */}
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-5">
+          {stats.map((item, i) => (
+            <div key={i} className="bg-white p-6 rounded-xl shadow-sm border">
+              <p className="text-2xl font-bold text-black">{item.value}</p>
+              <p className="text-sm text-gray-600 mt-1">{item.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* 🔥 TRUST LINE */}
+        <p className="mt-8 text-sm text-gray-500">
+          ✔️ सही जानकारी • ✔️ बिना गलती • ✔️ तुरंत काम
+        </p>
+
+        {/* 🔥 CTA */}
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="tel:9876543210"
+            className="px-6 py-3 bg-black text-white rounded-lg font-semibold flex items-center justify-center gap-2"
+          >
+            <Phone size={16} /> Call Now
+          </a>
+
+          <a
+            href="https://wa.me/919876543210"
+            className="px-6 py-3 bg-green-500 text-white rounded-lg font-semibold"
+          >
+            💬 WhatsApp करें
+          </a>
         </div>
       </div>
     </section>
