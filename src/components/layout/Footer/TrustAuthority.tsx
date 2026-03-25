@@ -20,33 +20,35 @@ export default function TrustAuthority() {
       width: 70,
     },
     {
-      name: "Sarkari Result",
-      src: "https://upload.wikimedia.org/wikipedia/commons/3/30/Sarkari_Result_Info.webp",
+      name: "PanCard",
+      src: "https://upload.wikimedia.org/wikipedia/commons/3/31/A_sample_of_Permanent_Account_Number_%28PAN%29_Card.jpg",
       width: 80,
     },
     {
-      name: "Govt of India",
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_of_India_logo.svg/330px-Government_of_India_logo.svg.png",
+      name: "Aadhaar",
+      src: "https://upload.wikimedia.org/wikipedia/en/c/cf/Aadhaar_Logo.svg",
       width: 30,
     },
   ];
 
   return (
-    <div className="flex  items-center gap-6 pt-4 ">
-      {logos.map((logo) => (
-        <div
-          key={logo.name}
-          className="relative flex items-center justify-center"
-        >
-          <Image
-            src={logo.src}
-            alt={logo.name}
-            width={logo.width}
-            height={40}
-            className="object-contain h-18 w-auto"
-          />
-        </div>
-      ))}
+    <div>
+      <div className="flex  items-center gap-6 pt-4 ">
+        {logos.map((logo) => (
+          <div
+            key={logo.name}
+            className="relative flex items-center justify-center"
+          >
+            <Image
+              src={logo.src}
+              alt={logo.name}
+              width={logo.width}
+              height={40}
+              className="object-contain h-18 w-auto"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
