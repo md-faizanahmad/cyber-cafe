@@ -1,4 +1,8 @@
+import CTASection from "@/components/home/CTASection";
 import CyberCafeServices from "@/components/home/cyberService/CyberCafeServices";
+import HowItWorks from "@/components/home/HowItWorks/HowItWorks";
+import JobsStrip from "@/components/home/JobsStrip/JobsStrip";
+import ReviewsSection from "@/components/home/ReviewsSection";
 import WhyChooseUs from "@/components/home/whyChooseUs/WhyChooseUs";
 import HeroSection from "@/components/layout/Header/HeroSection";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
@@ -39,8 +43,12 @@ export default function Home() {
     <main className="relative bg-background">
       <HeroSection />
       <CyberCafeServices />
+      <HowItWorks />
+      <JobsStrip />
       <WhyChooseUs />
       <TrustBuilder />
+      <CTASection />
+      <ReviewsSection />
     </main>
   );
 }
