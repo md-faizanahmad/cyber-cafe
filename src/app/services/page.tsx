@@ -1,232 +1,201 @@
-import React from "react";
-import {
-  CreditCard,
-  FileCheck,
-  Edit3,
-  PlusCircle,
-  Clock,
-  Wallet,
-  ChevronDown,
-  MessageCircle,
-  Phone,
-} from "lucide-react";
+"use client";
 
-const services = [
+import React, { useState, useMemo } from "react";
+import {
+  Search,
+  Clock,
+  FileText,
+  Phone,
+  MessageCircle,
+  Filter,
+} from "lucide-react";
+import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import Breadcrumb from "@/shared/Breadcrumb";
+
+const allServices = [
   {
-    category: "पहचान सेवाएं",
-    icon: <CreditCard className="text-blue-600" size={20} />,
-    items: [
-      {
-        name: "पैन कार्ड आवेदन (New/Correction)",
-        price: "₹150",
-        time: "15 मिनट",
-        docs: ["आधार कार्ड", "मोबाइल नंबर", "पासपोर्ट फोटो"],
-        process:
-          "हम आपका फॉर्म भरेंगे, फिंगरप्रिंट या OTP के माध्यम से वेरिफिकेशन करेंगे। 7-10 दिनों में ई-पैन मिल जाएगा।",
-      },
-      {
-        name: "आधार अपडेट (Mobile/Address)",
-        price: "₹50",
-        time: "10 मिनट",
-        docs: ["आधार कार्ड", "सहायक दस्तावेज (एड्रेस के लिए)"],
-        process:
-          "आधार सेंटर अपॉइंटमेंट या ऑनलाइन एड्रेस अपडेट की सुविधा। मोबाइल नंबर लिंक होना अनिवार्य है।",
-      },
-    ],
+    name: "New PAN Card",
+    category: "ID",
+    price: "₹150",
+    time: "15m",
+    docs: ["Aadhaar", "Photo", "Mobile"],
   },
   {
-    category: "सरकारी प्रमाण पत्र",
-    icon: <FileCheck className="text-orange-600" size={20} />,
-    items: [
-      {
-        name: "जाति / आय / निवास प्रमाण पत्र",
-        price: "₹120",
-        time: "20 मिनट",
-        docs: ["आधार कार्ड", "स्व-घोषणा पत्र", "फोटो"],
-        process:
-          "RTPS पोर्टल के माध्यम से आवेदन। 10-15 कार्य दिवसों में सर्टिफिकेट डाउनलोड के लिए उपलब्ध होगा।",
-      },
-      {
-        name: "जन्म / मृत्यु प्रमाण पत्र",
-        price: "₹150",
-        time: "20 मिनट",
-        docs: ["अस्पताल का पेपर", "आधार कार्ड", "माता-पिता के दस्तावेज"],
-        process:
-          "नगर निगम या ब्लॉक के माध्यम से ऑनलाइन पंजीकरण। वेरिफिकेशन के बाद ओरिजिनल सर्टिफिकेट प्राप्त करें।",
-      },
-    ],
+    name: "Aadhaar Update",
+    category: "ID",
+    price: "₹50",
+    time: "10m",
+    docs: ["Aadhaar", "Address Proof"],
   },
   {
-    category: "ऑनलाइन फॉर्म",
-    icon: <Edit3 className="text-purple-600" size={20} />,
-    items: [
-      {
-        name: "सरकारी नौकरी फॉर्म (All Govt Jobs)",
-        price: "₹100",
-        time: "15 मिनट",
-        docs: ["मार्कशीट", "फोटो", "हस्ताक्षर", "जाति प्रमाण पत्र"],
-        process:
-          "Sarkari Result और अन्य पोर्टल से सही और सटीक फॉर्म फिलिंग। प्रिंटआउट और पेमेंट रसीद तुरंत प्राप्त करें।",
-      },
-      {
-        name: "स्कॉलरशिप आवेदन",
-        price: "₹120",
-        time: "20 मिनट",
-        docs: ["आय प्रमाण पत्र", "मार्कशीट", "बैंक पासबुक", "बोनाफाइड"],
-        process:
-          "NSP या स्टेट स्कॉलरशिप पोर्टल पर पंजीकरण। सभी दस्तावेजों को सही साइज में स्कैन कर अपलोड करना।",
-      },
-    ],
+    name: "Income Certificate",
+    category: "Govt",
+    price: "₹120",
+    time: "20m",
+    docs: ["Aadhaar", "Self-Decl"],
   },
   {
-    category: "अन्य सेवाएं",
-    icon: <PlusCircle className="text-green-600" size={20} />,
-    items: [
-      {
-        name: "प्रिंट / स्कैन / ज़ेरॉक्स",
-        price: "₹5 – ₹20",
-        time: "तुरंत",
-        docs: ["PDF File", "Hardcopy"],
-        process:
-          "कलर और ब्लैक एंड व्हाइट प्रिंटिंग। हाई-क्वालिटी स्कैनिंग और लेमिनेशन की सुविधा उपलब्ध है।",
-      },
-      {
-        name: "नकद निकासी (AEPS / Micro ATM)",
-        price: "₹10 – ₹30",
-        time: "5 मिनट",
-        docs: ["आधार नंबर", "बैंक का नाम", "फिंगरप्रिंट"],
-        process:
-          "किसी भी बैंक से पैसा निकालें। सुरक्षित ट्रांजैक्शन और तुरंत रसीद। आधार से लिंक बैंक अकाउंट होना जरूरी है।",
-      },
-    ],
+    name: "Caste Certificate",
+    category: "Govt",
+    price: "₹120",
+    time: "20m",
+    docs: ["Aadhaar", "Land Doc"],
+  },
+  {
+    name: "Govt Job Form",
+    category: "Forms",
+    price: "₹100",
+    time: "15m",
+    docs: ["Marksheet", "Photo", "Sign"],
+  },
+  {
+    name: "Scholarship",
+    category: "Forms",
+    price: "₹120",
+    time: "20m",
+    docs: ["Income Cert", "Bank Passbook"],
+  },
+  {
+    name: "Cash Withdrawal",
+    category: "Banking",
+    price: "₹20",
+    time: "5m",
+    docs: ["Aadhaar", "Bank Name"],
+  },
+  {
+    name: "Print/Xerox",
+    category: "Other",
+    price: "₹5",
+    time: "Inst",
+    docs: ["File/Hardcopy"],
   },
 ];
 
 export default function ServicesPage() {
+  const [query, setQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("All");
+  const { phoneRaw } = CYBER_CAFE_CONFIG;
+
+  const categories = ["All", "ID", "Govt", "Forms", "Banking"];
+
+  const filteredServices = useMemo(() => {
+    return allServices.filter((s) => {
+      const matchesSearch = s.name.toLowerCase().includes(query.toLowerCase());
+      const matchesTab = activeTab === "All" || s.category === activeTab;
+      return matchesSearch && matchesTab;
+    });
+  }, [query, activeTab]);
+
   return (
-    <section className="px-4 py-20 bg-slate-50 min-h-screen">
-      <div className="max-w-4xl mx-auto">
-        {/* 🔥 SEO OPTIMIZED HEADER */}
-        <div className="mb-12 text-left md:text-center">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight italic uppercase">
-            हमारी <span className="text-blue-600">डिजिटल</span> सेवाएं
-          </h1>
-          <p className="text-slate-500 mt-4 text-lg font-medium">
-            डिजिटल इंडिया की सभी सुविधाएं —{" "}
-            <span className="text-slate-900 underline decoration-orange-400">
-              बिना किसी गलती के
-            </span>
-            ।
-          </p>
+    <main className="min-h-screen bg-white text-zinc-900 pb-10">
+      <div className="max-w-3xl mx-auto px-4 pt-5">
+        <Breadcrumb />
+
+        {/* SEARCH & FILTER BLOCK */}
+        <div className="mt-6  bg-white z-20 pb-4 border-b border-zinc-100">
+          <div className="relative mb-4">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
+              size={16}
+            />
+            <input
+              type="text"
+              placeholder="Search service (e.g. Pan, Aadhaar...)"
+              className="w-full pl-10 pr-4 py-3 bg-zinc-50 border border-zinc-200 rounded-xl text-sm outline-none focus:border-zinc-900 transition-colors"
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {categories.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider border transition-all whitespace-nowrap ${
+                  activeTab === tab
+                    ? "bg-zinc-900 text-white border-zinc-900"
+                    : "bg-white text-zinc-500 border-zinc-200"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* 🔥 CATEGORY LOOP */}
-        {services.map((section, i) => (
-          <div key={i} className="mb-12">
-            <div className="flex items-center gap-3 mb-6 px-2">
-              <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                {section.icon}
-              </div>
-              <h2 className="text-xl font-black uppercase tracking-widest text-slate-800">
-                {section.category}
-              </h2>
-            </div>
-
-            <div className="space-y-4">
-              {section.items.map((service, idx) => (
-                <details
-                  key={idx}
-                  className="group bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300 open:shadow-xl open:ring-1 open:ring-blue-100"
-                >
-                  <summary className="flex items-center justify-between p-5 cursor-pointer list-none focus:outline-none">
-                    <div className="flex flex-col gap-1">
-                      <h3 className="font-bold text-slate-900 md:text-lg group-open:text-blue-600 transition-colors">
-                        {service.name}
-                      </h3>
-                      <div className="flex items-center gap-4">
-                        <span className="text-xs font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded uppercase">
-                          {service.price}
-                        </span>
-                        <span className="text-[10px] font-bold text-slate-400 flex items-center gap-1 uppercase">
-                          <Clock size={12} /> {service.time}
-                        </span>
-                      </div>
+        {/* LISTING */}
+        <div className="mt-8 space-y-3">
+          {filteredServices.length > 0 ? (
+            filteredServices.map((service, i) => (
+              <div
+                key={i}
+                className="group p-4 border border-zinc-100 rounded-xl hover:border-zinc-300 transition-colors"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-tight">
+                      {service.name}
+                    </h3>
+                    <div className="flex gap-3 mt-1">
+                      <span className="text-[10px] text-zinc-400 flex items-center gap-1 uppercase font-medium">
+                        <Clock size={10} /> {service.time}
+                      </span>
+                      <span className="text-[10px] text-zinc-900 font-bold uppercase">
+                        {service.price}
+                      </span>
                     </div>
-                    <div className="text-slate-300 group-open:rotate-180 transition-transform duration-300 bg-slate-50 p-2 rounded-full">
-                      <ChevronDown size={20} />
-                    </div>
-                  </summary>
-
-                  <div className="px-5 pb-6 text-sm border-t border-slate-50 pt-5">
-                    <div className="grid md:grid-cols-2 gap-8">
-                      {/* Left: Docs */}
-                      <div className="space-y-3">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">
-                          जरूरी कागजात:
-                        </p>
-                        <ul className="grid grid-cols-1 gap-2">
-                          {service.docs.map((doc, i) => (
-                            <li
-                              key={i}
-                              className="flex items-center gap-2 font-bold text-slate-700"
-                            >
-                              <div className="h-1.5 w-1.5 bg-orange-400 rounded-full" />
-                              {doc}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Right: Process */}
-                      <div className="space-y-3">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">
-                          प्रक्रिया (Process):
-                        </p>
-                        <p className="text-slate-600 leading-relaxed font-medium bg-slate-50 p-3 rounded-xl border border-slate-100 italic">
-                          &quot;{service.process}&quot;
-                        </p>
-                      </div>
-                    </div>
-
-                    <a
-                      href={`https://wa.me/919876543210?text=नमस्ते, मुझे ${service.name} के बारे में जानकारी चाहिए।`}
-                      className="mt-6 flex items-center justify-center gap-2 w-full py-3.5 bg-zinc-900 text-white rounded-xl font-bold hover:bg-green-600 transition-colors"
-                    >
-                      <MessageCircle size={18} /> WhatsApp पर पूछें
-                    </a>
                   </div>
-                </details>
-              ))}
-            </div>
-          </div>
-        ))}
+                  <a
+                    href={`https://wa.me/91${phoneRaw}?text=Service: ${service.name}`}
+                    className="p-2 border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors"
+                  >
+                    <MessageCircle size={14} className="text-zinc-600" />
+                  </a>
+                </div>
 
-        {/* 🔥 STICKY FOOTER CTA AREA */}
-        <div className="mt-20 p-8 bg-white border border-slate-200 rounded-[2.5rem] text-center shadow-sm">
-          <h4 className="text-2xl font-black text-slate-900 italic uppercase">
-            कोई अन्य सेवा चाहिए?
-          </h4>
-          <p className="text-slate-500 mt-2 mb-8 font-medium italic">
-            अगर आपकी ज़रूरत यहाँ नहीं है, तो हमें कॉल करें। हम आपकी पूरी मदद
-            करेंगे।
+                <div className="flex flex-wrap gap-1.5 mt-2 pt-3 border-t border-zinc-50">
+                  <span className="text-[9px] font-bold text-zinc-300 uppercase mr-1">
+                    Docs:
+                  </span>
+                  {service.docs.map((doc, dIdx) => (
+                    <span
+                      key={dIdx}
+                      className="text-[10px] text-zinc-500 font-medium bg-zinc-50 px-2 py-0.5 rounded border border-zinc-100"
+                    >
+                      {doc}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="py-20 text-center text-zinc-400 text-xs uppercase tracking-widest font-bold">
+              No service found
+            </div>
+          )}
+        </div>
+
+        {/* COMPACT FOOTER CTA */}
+        <div className="mt-12 pt-8 border-t border-zinc-100 flex flex-col items-center">
+          <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-4">
+            Need something else?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex gap-3 w-full max-w-sm">
             <a
-              href="tel:9876543210"
-              className="flex items-center justify-center gap-2 px-10 py-4 bg-zinc-900 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl active:scale-95 transition-transform"
+              href={`tel:${phoneRaw}`}
+              className="flex-1 py-3 border border-zinc-900 text-center text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-zinc-50 transition-colors"
             >
-              <Phone size={16} /> Call Now
+              Call Now
             </a>
             <a
-              href="https://wa.me/919876543210"
-              className="flex items-center justify-center gap-2 px-10 py-4 bg-white border border-slate-200 text-slate-900 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-slate-50 active:scale-95 transition-transform"
+              href={`https://wa.me/91${phoneRaw}`}
+              className="flex-1 py-3 bg-zinc-900 text-white text-center text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition-colors"
             >
-              <MessageCircle size={16} className="text-green-600" /> WhatsApp
-              करें
+              WhatsApp
             </a>
           </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }
