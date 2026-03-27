@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
 
 interface PreviewDoc {
   service: string;
@@ -48,10 +47,7 @@ const previewDocs: PreviewDoc[] = [
     service: "स्कॉलरशिप आवेदन",
     docs: ["आधार कार्ड", "बैंक पासबुक", "मार्कशीट", "फोटो", "मोबाइल नंबर"],
   },
-  {
-    service: "प्रिंट / स्कैन / ज़ेरॉक्स",
-    docs: ["डॉक्यूमेंट (PDF / फोटो)", "पेन ड्राइव (यदि हो)"],
-  },
+
   {
     service: "आधार से पैसे निकासी (AEPS)",
     docs: ["आधार कार्ड", "फिंगरप्रिंट", "बैंक लिंक होना जरूरी"],
@@ -59,16 +55,12 @@ const previewDocs: PreviewDoc[] = [
 ];
 
 export default function DocumentsPreview() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // first open
-
-  const toggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
+  const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="py-14 px-4 bg-gray-50">
-      <div className="max-w-3xl mx-auto">
-        {/* Heading */}
+    <section className="py-14 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* HEADER */}
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-bold">जरूरी कागजात</h2>
           <p className="text-gray-600 mt-2 text-sm">
@@ -76,42 +68,35 @@ export default function DocumentsPreview() {
           </p>
         </div>
 
-        {/* Accordion */}
-        <div className="mt-8 space-y-3">
+        {/* 🔥 MOBILE (Accordion) */}
+        <div className="mt-8 space-y-3 md:hidden">
           {previewDocs.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <div
-                key={index}
-                className="bg-white border rounded-lg overflow-hidden"
-              >
-                {/* Header */}
+              <div key={index} className="bg-white border rounded-lg">
                 <button
-                  onClick={() => toggle(index)}
-                  className="w-full flex  justify-between items-center p-4 font-semibold text-gray-800"
+                  onClick={() => setOpenIndex(index)} // ✅ FIXED
+                  className="w-full flex justify-between items-center p-4 font-semibold"
                 >
                   {item.service}
                   <span
-                    className={`transition-transform duration-300 ${
+                    className={`transition-transform ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   >
-                    <ChevronDown />
+                    ⌄
                   </span>
                 </button>
 
-                {/* Content */}
                 <div
-                  className={`transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                  } overflow-hidden`}
+                  className={`overflow-hidden transition-all duration-300 ${
+                    isOpen ? "max-h-40 p-4" : "max-h-0"
+                  }`}
                 >
-                  <ul className="px-4 pb-4 text-sm text-gray-600 space-y-1">
+                  <ul className="text-sm text-gray-600 space-y-1">
                     {item.docs.map((doc, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        ✔️ {doc}
-                      </li>
+                      <li key={i}>✔️ {doc}</li>
                     ))}
                   </ul>
                 </div>
@@ -120,12 +105,38 @@ export default function DocumentsPreview() {
           })}
         </div>
 
+        {/* 🔥 DESKTOP (Tabs) */}
+        <div className="hidden md:block mt-10">
+          {/* Tabs */}
+          <div className="flex gap-3 border-b pb-2">
+            {previewDocs.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => setOpenIndex(index)}
+                className={`px-4 py-2 text-sm font-semibold rounded-t ${
+                  openIndex === index
+                    ? "bg-white border border-b-0"
+                    : "text-gray-500"
+                }`}
+              >
+                {item.service}
+              </button>
+            ))}
+          </div>
+
+          {/* Content */}
+          <div className="bg-white border p-6 rounded-b">
+            <ul className="text-sm text-gray-600 space-y-2">
+              {previewDocs[openIndex].docs.map((doc, i) => (
+                <li key={i}>✔️ {doc}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
         {/* CTA */}
         <div className="mt-8 text-center">
-          <Link
-            href="/documents"
-            className="text-blue-600 font-semibold hover:underline"
-          >
+          <Link href="/documents" className="text-blue-600 font-semibold">
             सभी डॉक्यूमेंट देखें →
           </Link>
         </div>
