@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import Breadcrumb from "@/shared/Breadcrumb";
 
 interface Job {
   title: string;
@@ -42,7 +43,10 @@ export default function JobsPage() {
   );
 
   return (
-    <main className="min-h-screen bg-white px-4 py-6 mt-16">
+    <main className="min-h-screen bg-white px-4 py-6 ">
+      <div className="max-w-6xl mx-auto px-4 mb-10">
+        <Breadcrumb />
+      </div>
       {/* HEADER */}
       <div className="max-w-4xl mx-auto mb-5">
         <h1 className="text-lg sm:text-xl font-bold">🔥 सरकारी नौकरी अपडेट</h1>
