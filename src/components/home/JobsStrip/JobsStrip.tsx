@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
-import Link from "next/link";
 import {
   MessageCircle,
   BellRing,
   ChevronLeft,
   ChevronRight,
   Flame,
+  LayoutGrid,
 } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import Link from "next/link";
 
 interface Job {
   title: string;
@@ -104,6 +105,15 @@ export default function JobsStrip() {
             >
               <ChevronRight size={20} />
             </button>
+
+            <div>
+              <Link
+                href="/jobs"
+                className="hidden md:flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-digital-blue transition-colors group"
+              >
+                सभी सेवाएं देखें <LayoutGrid size={18} />
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -117,7 +127,7 @@ export default function JobsStrip() {
             {jobs.map((job, i) => (
               <div
                 key={i}
-                className="min-w-[88vw] md:min-w-[380px] snap-center bg-zinc-50 border border-slate-200/50 rounded-[2rem] p-7 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:border-red-100"
+                className="min-w-[88vw] md:min-w-95 snap-center bg-zinc-50 border border-slate-200/50 rounded-4xl p-7 transition-all duration-500 hover:bg-white hover:shadow-2xl hover:border-red-100"
               >
                 <div className="flex items-center gap-3 mb-5">
                   <span className="bg-red-600 px-2.5 py-1 rounded-lg text-[10px] font-black text-white uppercase flex items-center gap-1 italic">
@@ -155,13 +165,13 @@ export default function JobsStrip() {
           {/* Mobile Overlay Arrows (Transparent) */}
           <button
             onClick={handlePrev}
-            className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 w-10 h-20 bg-gradient-to-r from-white/80 to-transparent flex items-center justify-start z-10"
+            className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 w-10 h-20 bg-linear-to-r from-white/80 to-transparent flex items-center justify-start z-10"
           >
             <ChevronLeft size={24} className="text-slate-400" />
           </button>
           <button
             onClick={handleNext}
-            className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 w-10 h-20 bg-gradient-to-l from-white/80 to-transparent flex items-center justify-end z-10"
+            className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 w-10 h-20 bg-linear-to-l from-white/80 to-transparent flex items-center justify-end z-10"
           >
             <ChevronRight size={24} className="text-slate-400" />
           </button>
