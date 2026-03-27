@@ -1,105 +1,134 @@
-// src/app/jobs/page.tsx
-import { Metadata } from "next";
-import Link from "next/link";
-import { getJobs, parseDate, slugify } from "@/lib/job";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Latest Government Jobs | Cyber Cafe",
-  description:
-    "Latest government job notifications updated weekly at our cyber cafe.",
-};
+import { useEffect, useMemo, useState } from "react";
+import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 
-function isNew(postedDate: string): boolean {
-  const days =
-    (Date.now() - parseDate(postedDate).getTime()) / (1000 * 60 * 60 * 24);
-  return days <= 7;
+interface Job {
+  title: string;
+  link: string;
+  date: string;
 }
 
-// Next.js pages MUST be default exports
-export default async function JobsPage() {
-  const jobs = await getJobs();
+const ITEMS_PER_PAGE = 10;
 
-  const visibleJobs = jobs
-    .filter((job) => job.status === "active")
-    .filter((job) => parseDate(job.last_date) >= new Date())
-    .sort(
-      (a, b) =>
-        parseDate(b.posted_date).getTime() - parseDate(a.posted_date).getTime(),
+export default function JobsPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+
+  const { phoneRaw } = CYBER_CAFE_CONFIG;
+
+  // 🔥 FETCH
+  useEffect(() => {
+    fetch("/api/jobs")
+      .then((res) => res.json())
+      .then((data) => setJobs(data.jobs || []))
+      .catch(() => setJobs([]));
+  }, []);
+
+  // 🔥 SEARCH ONLY
+  const filteredJobs = useMemo(() => {
+    return jobs.filter((job) =>
+      job.title.toLowerCase().includes(search.toLowerCase()),
     );
+  }, [jobs, search]);
+
+  // 🔥 PAGINATION
+  const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
+
+  const paginatedJobs = filteredJobs.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE,
+  );
 
   return (
-    <main className="min-h-screen bg-white px-4 py-8 mt-20">
-      <section className="mx-auto max-w-4xl">
-        <header className="mb-8 border-b pb-4">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Latest Government Jobs
-          </h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Updated weekly • Apply before last date
-          </p>
-        </header>
+    <main className="min-h-screen bg-white px-4 py-6 mt-16">
+      {/* HEADER */}
+      <div className="max-w-4xl mx-auto mb-5">
+        <h1 className="text-lg sm:text-xl font-bold">🔥 सरकारी नौकरी अपडेट</h1>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">
+          फॉर्म भरवाने के लिए WhatsApp या Call करें
+        </p>
+      </div>
 
-        {visibleJobs.length === 0 ? (
-          <p className="text-gray-500 italic">
-            No active job notifications right now.
-          </p>
+      {/* 🔍 SEARCH */}
+      <div className="max-w-4xl mx-auto mb-5">
+        <input
+          type="text"
+          placeholder="नौकरी खोजें..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(1);
+          }}
+          className="w-full border px-3 py-2 rounded text-sm"
+        />
+      </div>
+
+      {/* 📄 LIST */}
+      <div className="max-w-4xl mx-auto divide-y">
+        {paginatedJobs.length === 0 ? (
+          <p className="text-gray-500 text-sm py-6">कोई नौकरी नहीं मिली</p>
         ) : (
-          <ul className="space-y-4">
-            {visibleJobs.map((job, index) => (
-              <li
-                key={index}
-                className="rounded-xl border bg-white p-5 shadow-sm transition hover:shadow-md"
-              >
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                  <div>
-                    <h2 className="text-lg font-bold text-slate-900 uppercase">
-                      {job.title}
-                      {isNew(job.posted_date) && (
-                        <span className="ml-2 rounded bg-green-100 px-2 py-0.5 text-[10px] font-black text-green-700">
-                          NEW
-                        </span>
-                      )}
-                    </h2>
-                    <p className="text-sm font-semibold text-digital-blue uppercase tracking-tight">
-                      {job.department}
-                    </p>
-                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-600">
-                      <p>
-                        <span className="font-bold text-slate-900">
-                          Qualification:
-                        </span>{" "}
-                        {job.qualification}
-                      </p>
-                      <p>
-                        <span className="font-bold text-slate-900">
-                          Last Date:
-                        </span>{" "}
-                        {job.last_date}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2 shrink-0">
-                    <Link
-                      href={`/jobs/${slugify(job.title)}`}
-                      className="px-4 py-2 text-sm font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-                    >
-                      Details
-                    </Link>
-                    <a
-                      href={job.apply_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-digital-blue px-4 py-2 text-sm font-bold text-white rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      Apply
-                    </a>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          paginatedJobs.map((job, index) => (
+            <div key={index} className="py-4">
+              {/* TITLE */}
+              <p className="text-sm font-semibold text-gray-900 leading-snug">
+                {job.title}
+              </p>
+
+              {/* STATUS */}
+              <p className="text-[11px] text-gray-500 mt-1">📢 नया अपडेट</p>
+
+              {/* ACTIONS */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {/* WHATSAPP */}
+                <a
+                  href={`https://wa.me/91${phoneRaw}?text=मुझे ${job.title} का फॉर्म भरवाना है`}
+                  className="px-3 py-1.5 bg-green-500 text-white text-xs rounded"
+                >
+                  💬 WhatsApp
+                </a>
+
+                {/* CALL */}
+                <a
+                  href={`tel:+91${phoneRaw}`}
+                  className="px-3 py-1.5 bg-black text-white text-xs rounded"
+                >
+                  📞 Call
+                </a>
+
+                {/* VIEW */}
+                <a
+                  href={job.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 border text-xs rounded"
+                >
+                  View
+                </a>
+              </div>
+            </div>
+          ))
         )}
-      </section>
+      </div>
+
+      {/* 📄 PAGINATION */}
+      {totalPages > 1 && (
+        <div className="max-w-4xl mx-auto mt-6 flex flex-wrap justify-center gap-2">
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setPage(i + 1)}
+              className={`px-3 py-1 text-xs rounded ${
+                page === i + 1 ? "bg-black text-white" : "border"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

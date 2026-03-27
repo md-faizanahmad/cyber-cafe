@@ -7,15 +7,15 @@ interface RawJob {
   publishedAt?: string;
 }
 
-interface JobsApiResponse {
-  success: boolean;
-  jobs: Job[];
-}
-
 export interface Job {
   title: string;
   link: string;
   date: string;
+}
+
+interface JobsApiResponse {
+  success: boolean;
+  jobs: Job[];
 }
 
 export async function GET() {
@@ -38,7 +38,7 @@ export async function GET() {
 
     const data: unknown = await response.json();
 
-    // 🔥 SAFE EXTRACTION
+    // ✅ SAFE EXTRACTION
     let rawJobs: RawJob[] = [];
 
     if (Array.isArray(data)) {
@@ -59,21 +59,10 @@ export async function GET() {
       rawJobs = (data as { data: RawJob[] }).data;
     }
 
-    // 🔥 FILTER USEFUL JOBS
-    const filtered = rawJobs.filter((item) => {
-      const title = item.title?.toLowerCase() || "";
+    // ❌ REMOVE FILTERING (frontend will handle)
+    // ❌ REMOVE SLICING
 
-      return (
-        title.includes("apply") ||
-        title.includes("form") ||
-        title.includes("vacancy") ||
-        title.includes("recruitment")
-      );
-    });
-
-    const finalList = (filtered.length ? filtered : rawJobs).slice(0, 8);
-
-    const jobs: Job[] = finalList.map((item) => ({
+    const jobs: Job[] = rawJobs.map((item) => ({
       title: item.title ?? "New Job Update",
       link: item.link ?? "#",
       date: item.date ?? item.publishedAt ?? "New",
