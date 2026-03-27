@@ -58,7 +58,7 @@ export default function DocumentsPreview() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
   return (
-    <section className="py-14 px-4">
+    <section className="py-8 px-4">
       <div className="max-w-6xl mx-auto">
         {/* HEADER */}
         <div className="text-center">
