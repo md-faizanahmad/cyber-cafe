@@ -48,7 +48,7 @@ export const CYBER_CAFE_CONFIG = {
       phone: "9512953624",
     },
   ],
-
+  googleReviewUrl: "",
   // ============================================================
   // CONTACT INFORMATION (NAP)
   // ============================================================
@@ -117,5 +117,5 @@ export const CYBER_CAFE_CONFIG = {
   // ============================================================
   // WEBSITE
   // ============================================================
-  website: "https://cyber-cafe-drab.vercel.app"
+  website: "https://cyber-cafe-drab.vercel.app",
 };
