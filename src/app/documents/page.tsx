@@ -1,5 +1,8 @@
 "use client";
 
+import Breadcrumb from "@/shared/Breadcrumb";
+import { Check, AlertCircle, Phone, MessageSquare } from "lucide-react";
+
 const docsData = [
   {
     service: "पैन कार्ड आवेदन",
@@ -25,90 +28,111 @@ const docsData = [
 
 export default function DocumentsPage() {
   return (
-    <section className="px-4 py-16 bg-white">
-      <div className="max-w-6xl mx-auto">
-        {/* 🔥 HERO */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold">जरूरी कागजात</h1>
-          <p className="text-gray-600 mt-2">
-            सही डॉक्यूमेंट लाने से आपका काम जल्दी और बिना गलती के होगा
+    <main className="bg-white min-h-screen pt-10 pb-20">
+      <div className="max-w-6xl mx-auto px-4 mb-10">
+        <Breadcrumb />
+      </div>
+      <div className="container mx-auto px-6 max-w-5xl">
+        {/* --- MINIMAL HEADER --- */}
+        <header className="mb-20">
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-6">
+            जरूरी{" "}
+            <span className="text-accent italic font-medium">दस्तावेज.</span>
+          </h1>
+          <p className="text-slate-400 font-medium text-lg max-w-xl border-l-2 border-accent pl-6">
+            सही जानकारी, सही परिणाम। आपके आवेदन की सफलता के लिए आवश्यक कागजात की
+            सूची।
           </p>
-        </div>
+        </header>
 
-        {/* 🔥 SERVICE DOCUMENTS */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* --- CLEAN GRID --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20">
           {docsData.map((item, i) => (
-            <div key={i} className="border rounded-xl p-5 bg-gray-50 shadow-sm">
-              <h3 className="font-semibold text-lg mb-3">{item.service}</h3>
+            <div key={i} className="group">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-xs font-black text-accent/30 tabular-nums">
+                  0{i + 1}
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 tracking-tight group-hover:text-accent transition-colors">
+                  {item.service}
+                </h3>
+              </div>
 
-              <p className="text-sm font-medium">📄 जरूरी कागजात:</p>
-
-              <ul className="text-sm text-gray-600 list-disc ml-4 mt-2">
+              <ul className="space-y-4 mb-6">
                 {item.required.map((doc, idx) => (
-                  <li key={idx}>{doc}</li>
+                  <li
+                    key={idx}
+                    className="flex items-center gap-3 text-sm font-bold text-slate-500"
+                  >
+                    <Check size={14} className="text-accent" strokeWidth={3} />
+                    {doc}
+                  </li>
                 ))}
               </ul>
 
-              <p className="text-sm text-red-500 mt-3">⚠️ {item.note}</p>
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-500 bg-rose-50 w-fit px-3 py-1 rounded-md">
+                <AlertCircle size={12} />
+                {item.note}
+              </div>
             </div>
           ))}
         </div>
 
-        {/* 🔥 COMMON DOCUMENTS */}
-        <div className="mt-14">
-          <h2 className="text-xl font-semibold mb-4">
-            आम तौर पर जरूरी दस्तावेज
-          </h2>
+        {/* --- SYSTEMATIC CHECKLIST (ELEGANT) --- */}
+        <div className="mt-32 pt-20 border-t border-slate-100">
+          <div className="flex flex-col lg:flex-row gap-16">
+            <div className="lg:w-1/3">
+              <h2 className="text-3xl font-black text-slate-900 tracking-tighter">
+                आम चेकलिस्ट
+              </h2>
+              <p className="text-slate-400 text-sm mt-2 font-medium">
+                हमेशा साथ रखने वाले डॉक्यूमेंट्स।
+              </p>
+            </div>
 
-          <div className="bg-gray-50 p-6 rounded-xl border">
-            <ul className="grid sm:grid-cols-2 gap-3 text-sm text-gray-700">
-              <li>✔️ आधार कार्ड</li>
-              <li>✔️ पासपोर्ट साइज फोटो</li>
-              <li>✔️ मोबाइल नंबर</li>
-              <li>✔️ ईमेल आईडी</li>
-              <li>✔️ शैक्षणिक प्रमाण पत्र</li>
-              <li>✔️ पता प्रमाण</li>
-            </ul>
+            <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                "आधार कार्ड",
+                "पासपोर्ट फोटो",
+                "मोबाइल नंबर",
+                "ईमेल आईडी",
+                "मार्कशीट",
+              ].map((text, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-between p-4 border border-slate-50 rounded-2xl hover:border-slate-200 transition-colors"
+                >
+                  <span className="text-sm font-bold text-slate-700">
+                    {text}
+                  </span>
+                  <div className="h-1.5 w-1.5 rounded-full bg-slate-200" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* 🔥 MISTAKES SECTION (HIGH VALUE) */}
-        <div className="mt-14">
-          <h2 className="text-xl font-semibold mb-4">आम गलतियाँ (इनसे बचें)</h2>
-
-          <div className="bg-red-50 p-6 rounded-xl border text-sm text-red-700">
-            <ul className="space-y-2">
-              <li>❌ गलत नाम या जन्मतिथि भरना</li>
-              <li>❌ गलत फोटो या साइज अपलोड करना</li>
-              <li>❌ मोबाइल नंबर गलत देना</li>
-              <li>❌ अधूरे दस्तावेज़ देना</li>
-            </ul>
+        {/* --- ACTION BAR (FLOATING STYLE) --- */}
+        <div className="mt-32 flex flex-col items-center">
+          <div className="bg-slate-900 p-2 rounded-full flex flex-col sm:flex-row gap-2 shadow-2xl">
+            <a
+              href="tel:9512953624"
+              className="flex items-center gap-3 px-8 py-4 bg-white text-slate-900 rounded-full font-black text-xs uppercase tracking-widest hover:bg-accent hover:text-white transition-all"
+            >
+              <Phone size={14} /> Call Now
+            </a>
+            <a
+              href="https://wa.me/919512953624"
+              className="flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-full font-black text-xs uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all"
+            >
+              <MessageSquare size={14} /> WhatsApp
+            </a>
           </div>
-        </div>
-
-        {/* 🔥 CTA */}
-        <div className="mt-14 text-center">
-          <p className="text-gray-600 mb-4">
-            सभी डॉक्यूमेंट तैयार हैं? अभी संपर्क करें
+          <p className="mt-6 text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">
+            Expert Support Available
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="tel:9876543210"
-              className="px-6 py-3 bg-black text-white rounded"
-            >
-              📞 Call Now
-            </a>
-
-            <a
-              href="https://wa.me/919876543210"
-              className="px-6 py-3 bg-green-500 text-white rounded"
-            >
-              💬 WhatsApp करें
-            </a>
-          </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }

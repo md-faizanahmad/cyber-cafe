@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import {
-  Search,
-  Clock,
-  FileText,
-  Phone,
-  MessageCircle,
-  Filter,
-} from "lucide-react";
+import { Search, Clock, MessageCircle } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
 import Breadcrumb from "@/shared/Breadcrumb";
 
