@@ -37,8 +37,8 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 px-6 bg-white overflow-hidden">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-20 px-4 bg-white">
+      <div className="max-w-4xl mx-auto">
         {/* HEADER */}
         <div className="mb-16 border-l-4 border-zinc-900 pl-6">
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-2 block">
@@ -49,77 +49,60 @@ export default function WhyChooseUs() {
           </h2>
         </div>
 
-        {/* TIMELINE CONTAINER */}
-        <div className="relative">
-          {/* VERTICAL PULSE LINE */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-slate-100 z-0">
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-blue-500 to-transparent h-1/3 animate-pulse-line" />
+        {/* STACKING CONTAINER */}
+        <div className="relative space-y-10 md:space-y-20">
+          {/* BACKGROUND PULSE LINE (Visible between cards) */}
+          <div className="absolute left-8 md:left-10 top-0 bottom-0 w-0.5 bg-slate-50 z-0">
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-blue-500 to-transparent h-1/4 animate-pulse-line" />
           </div>
 
-          <div className="space-y-12 relative z-10">
-            {reasons.map((item, i) => (
-              <div
-                key={i}
-                className="group flex gap-8 items-start md:items-center"
-              >
-                {/* STEP INDICATOR */}
-                <div className="shrink-0 relative">
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-white border-2 border-slate-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:border-blue-500 group-hover:shadow-lg group-hover:shadow-blue-100 transition-all duration-500">
-                    {item.icon}
-                  </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-zinc-900 text-white text-[10px] font-black rounded-full flex items-center justify-center italic">
-                    0{i + 1}
-                  </div>
+          {reasons.map((item, i) => (
+            <div
+              key={i}
+              className="sticky group flex gap-6 md:gap-10 items-start"
+              // Increase top offset for each card to create the "Stacking" look
+              style={{ top: `${80 + i * 30}px` }}
+            >
+              {/* STEP INDICATOR */}
+              <div className="shrink-0 relative z-10">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-white border-2  rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500">
+                  {item.icon}
                 </div>
-
-                {/* STACKED CARD CONTENT */}
-                <div className="flex-1 bg-white border border-slate-100 p-6 md:p-8 rounded-[2rem] shadow-sm hover:shadow-xl hover:shadow-slate-100 transition-all duration-500">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-4">
-                    <h3 className="text-lg md:text-xl font-black text-slate-900 uppercase italic tracking-tight">
-                      {item.title}
-                    </h3>
-                    <span className="w-fit text-[9px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                      {item.tag}
-                    </span>
-                  </div>
-                  <p className="text-slate-500 font-semibold text-xs md:text-sm leading-relaxed max-w-2xl">
-                    {item.desc}
-                  </p>
+                <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-zinc-900 text-white text-[10px] font-black rounded-full flex items-center justify-center italic">
+                  0{i + 1}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* COMPACT TRUST BANNER */}
-        <div className="mt-16 p-6 bg-zinc-950 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-          <div className="flex items-center gap-4">
-            <div className="h-10 w-10 bg-white/10 rounded-full flex items-center justify-center">
-              <AlertCircle size={20} className="text-blue-400 animate-pulse" />
+              {/* STACKED CARD */}
+              <div className="flex-1 bg-white border border-slate-100 p-6 md:p-10 rounded-[2.5rem] shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 hover:border-blue-100">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5">
+                  <h3 className="text-lg md:text-2xl font-black text-slate-900 uppercase italic tracking-tight">
+                    {item.title}
+                  </h3>
+                  <span className="w-fit text-[9px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+                    {item.tag}
+                  </span>
+                </div>
+                <p className="text-slate-500 font-semibold text-xs md:text-base leading-relaxed max-w-2xl">
+                  {item.desc}
+                </p>
+              </div>
             </div>
-            <p className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">
-              Trusted by{" "}
-              <span className="text-blue-500 italic">10,000+ Customers</span>{" "}
-              for Error-Free Documentation
-            </p>
-          </div>
-          <button className="w-full md:w-auto px-8 py-4 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/20">
-            Get Started Now
-          </button>
+          ))}
         </div>
       </div>
 
       <style jsx global>{`
         @keyframes pulse-line {
           0% {
-            top: -33%;
+            top: -25%;
           }
           100% {
             top: 100%;
           }
         }
         .animate-pulse-line {
-          animation: pulse-line 4s linear infinite;
+          animation: pulse-line 5s linear infinite;
         }
       `}</style>
     </section>
