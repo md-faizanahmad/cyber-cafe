@@ -2,6 +2,7 @@
 
 import { Phone, MapPin, Mail } from "lucide-react";
 import { CYBER_CAFE_CONFIG } from "@/config/cyberCafe";
+import ContactForm from "@/components/ContactForm";
 
 export default function ContactPage() {
   const { phone, phoneRaw, email, address, city } = CYBER_CAFE_CONFIG;
@@ -71,32 +72,7 @@ export default function ContactPage() {
         {/* 🔥 OPTIONAL FORM (LOW PRIORITY) */}
         <div className="mt-12 border p-6 rounded-xl">
           <h3 className="font-semibold mb-4">या अपना विवरण भेजें</h3>
-
-          <form className="space-y-4">
-            <input
-              type="text"
-              placeholder="नाम"
-              className="w-full border p-2 rounded"
-            />
-
-            <input
-              type="tel"
-              placeholder="मोबाइल नंबर"
-              className="w-full border p-2 rounded"
-            />
-
-            <textarea
-              placeholder="आपको क्या सेवा चाहिए?"
-              className="w-full border p-2 rounded"
-            />
-
-            <button
-              type="submit"
-              className="w-full py-2 bg-black text-white rounded"
-            >
-              भेजें
-            </button>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </section>
